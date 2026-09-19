@@ -1,0 +1,10 @@
+{
+  "name": "playground-pnpm12-dedupe-performance",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node generate-projects.mjs",
+    "benchmark": "node benchmark.mjs"
+  }
+}
+
