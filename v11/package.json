@@ -1,6 +1,6 @@
 {
   "name": "alotta-modules-convergence-overrides",
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@11.27.0",
   "version": "0.0.1",
   "dependencies": {
     "animate.less": "^2.2.0",

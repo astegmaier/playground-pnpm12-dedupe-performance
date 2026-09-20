@@ -5,7 +5,7 @@ using public packages from pnpm's `alotta-files` benchmark.
 
 The fixture contains two equivalent projects:
 
-- `v11/` uses `packageManager: "pnpm@11.25.0"` and a pnpm 11 lockfile.
+- `v11/` uses `packageManager: "pnpm@11.27.0"` and a pnpm 11 lockfile.
 - `v12/` uses `packageManager: "pnpm@12.5.1"` and a pnpm 12 lockfile.
 
 Both projects contain the same dependencies and 71 convergence overrides. Their
@@ -13,20 +13,20 @@ project files differ only in the `packageManager` version.
 
 ## Results
 
-Each cell is the median of three measured warm-cache runs on September 20,
+Each cell is the median of five measured warm-cache runs on September 20,
 2026. Lower is better.
 
-| Registry | pnpm 11.25.0 | pnpm 12.5.1 | Absolute regression | Percent regression |
+| Registry | pnpm 11.27.0 | pnpm 12.5.1 | Absolute regression | Percent regression |
 |---|---:|---:|---:|---:|
-| `registry.npmjs.org` | 4.13s | 4.66s | +0.53s | +12.8% |
-| Azure DevOps Artifacts | 7.51s | 25.81s | +18.30s | +243.7% |
+| `registry.npmjs.org` | 3.37s | 3.97s | +0.60s | +17.8% |
+| Azure DevOps Artifacts | 7.13s | 23.57s | +16.44s | +230.6% |
 
 Individual measured runs:
 
-| Registry | pnpm 11.25.0 | pnpm 12.5.1 |
+| Registry | pnpm 11.27.0 | pnpm 12.5.1 |
 |---|---|---|
-| `registry.npmjs.org` | 4.13s / 4.72s / 3.94s | 4.26s / 4.66s / 5.31s |
-| Azure DevOps Artifacts | 8.39s / 7.28s / 7.51s | 25.81s / 27.99s / 24.71s |
+| `registry.npmjs.org` | 3.65s / 3.36s / 3.42s / 2.85s / 3.37s | 4.21s / 4.34s / 3.38s / 3.57s / 3.97s |
+| Azure DevOps Artifacts | 7.75s / 7.13s / 7.02s / 6.52s / 7.57s | 24.32s / 23.25s / 23.57s / 23.90s / 23.57s |
 
 The regression exists with the public npm registry. Azure DevOps is an example
 of a slower registry that makes the same serialization bug much more visible.
@@ -81,6 +81,8 @@ pnpm dedupe --lockfile-only >/dev/null
 time pnpm dedupe --lockfile-only
 time pnpm dedupe --lockfile-only
 time pnpm dedupe --lockfile-only
+time pnpm dedupe --lockfile-only
+time pnpm dedupe --lockfile-only
 ```
 
 Then measure pnpm 12:
@@ -93,16 +95,18 @@ pnpm dedupe --lockfile-only >/dev/null
 time pnpm dedupe --lockfile-only
 time pnpm dedupe --lockfile-only
 time pnpm dedupe --lockfile-only
+time pnpm dedupe --lockfile-only
+time pnpm dedupe --lockfile-only
 ```
 
 The version commands should print:
 
 ```text
-11.25.0
+11.27.0
 12.5.1
 ```
 
-Record the `real` wall-clock time for the three measured runs and report their
+Record the `real` wall-clock time for the five measured runs and report their
 median. The unmeasured run warms that registry's metadata cache and settles the
 feed-specific lockfile.
 
@@ -134,4 +138,3 @@ pnpm 12 bug, but compound the cost of issuing the request batches serially.
 See
 [pnpm resolution performance: npmjs vs Azure Artifacts](https://github.com/astegmaier/playground-pnpm-ado-benchmarks)
 for a separate reproduction and analysis of those registry behaviors.
-
