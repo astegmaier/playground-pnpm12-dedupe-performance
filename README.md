@@ -1,6 +1,6 @@
 # pnpm 12 dedupe convergence-override performance regression
 
-This repository accompanies [pnpm/pnpm#15175](https://github.com/pnpm/pnpm/issues/15175).
+This repository accompanies [pnpm/pnpm#15175](https://github.com/pnpm/pnpm/issues/15175). The issue was fixed by the merged [pnpm/pnpm#15181](https://github.com/pnpm/pnpm/pull/15181).
 
 This repository demonstrates a pnpm 12.5.1 `pnpm dedupe` performance regression
 using public packages from pnpm's `alotta-files` benchmark.
